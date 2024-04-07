@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= pageTitle %></title>
+<style type="text/css">
+ 
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 0.1fr 1.8fr 1fr 0.5fr;
+  grid-template-areas:
+    "sidebar nav nav nav"
+    "sidebar main main main"
+    "sidebar component1 component2 component3"
+    "sidebar footer footer footer";
+  grid-gap: 20px; /
+  background-color:#CCCCFF;
+}
+
+#navbar {
+  background: #403B4A;
+  grid-area: nav;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; 
+  border-radius: 10px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  margin-right:1vh;
+}
+
+#navbar h1 {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+main {
+  grid-area: main;
+  padding: 20px; /* Added padding */
+  background-color:#E5CCFF;
+    margin-right:1vh;
+}
+
+#input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 16px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
+
+  #input:focus {
+  outline: none; 
+  border: 2px solid #4CAF50; 
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.7); 
+}
+
+#btn {
+  background-color: green;
+  color: white;
+  width: 100%;
+  height: 40px; 
+  font-size: 18px; 
+  border-radius: 20px; 
+  margin-top: 10px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+#btn:hover {
+  background-color: #4CAF50;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 20px; /* Rounded sidebar */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Added shadow */
+  display:flex;
+  justify-content: space-evenly;
+  flex-direction:column;
+}
+
+.sidebar a {
+  font-size:larger;
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+  background-color: #555;
+}
+#c1 {
+  background-color: white;/* Gradient background */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+#c2 {
+  background-color: white;/* Yellow background */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+#c3 {
+  background-color: white; /* Blue background */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  margin-right:0.5vh;
+}
+#footer {
+  grid-area: footer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #FfC0CB; 
+  color: black;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#footer a:hover {
+  color: #ff6600;
+}
+
+.gif {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.gif p a {
+  margin-left: 20px;
+}
+
+.con img {
+  height: 40px;
+  width: 40px;
+  margin-top: 10px;
+}
+
+.con h4 {
+  margin: 5px 0;
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas:
+      "nav"
+      "main"
+      "sidebar"
+      "component1"
+      "component2"
+      "component3"
+      "footer";
+  }
+
+  .sidebar {
+    width: 100%;
+    box-shadow: none;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div id="navbar">
+    <h1><%= pageTitle %></h1>
+  </div>
+
+  <main>
+    <center>
+      <h1>Search news</h1>
+    </center>
+    <div class="main1">
+<form action="/search" method="POST">
+        <input type="text" name="searchQuery" id="input" placeholder="Search news">
+        <button type="submit" id="btn">Search</button>
+      </form>
+    </div>
+  </main>
+
+  <div class="sidebar">
+    <a href="/homee">Home</a>
+    <a href="#footer">About</a>
+    <a href="#">Services</a>
+    <a href="#contact">Contack</a>
+    <a href="/feedback">Feedback</a>
+     <a href="/logout" id="logout">Logout</a>
+  </div>
+
+  <div id="c1" class="ov">
+   
+    <% if (articles && articles.c1 && articles.c1.length > 0) { %>
+      <% articles.c1.forEach(article => { %>
+        <div class="news-article">
+          <h2 class="article-title"><%= article.title %></h2>
+          <p class="article-published">Published: <%= article.publishedAt %></p>
+          <p class="article-description">Description: <%= article.description %></p>
+          <p class="article-source">Source: <%= article.source.name %></p>
+          <p class="article-url">URL: <a href="<%= article.url %>"><%= article.url %></a></p>
+          <hr>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="news-article">
+        <p>No articles found.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <div id="c2" class="ov">
+   
+    <% if (articles && articles.c2 && articles.c2.length > 0) { %>
+      <% articles.c2.forEach(article => { %>
+        <div class="news-article">
+          <h2 class="article-title"><%= article.title %></h2>
+          <p class="article-published">Published: <%= article.publishedAt %></p>
+          <p class="article-description">Description: <%= article.description %></p>
+          <p class="article-source">Source: <%= article.source.name %></p>
+          <p class="article-url">URL: <a href="<%= article.url %>"><%= article.url %></a></p>
+          <hr>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="news-article">
+        <p>No articles found.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <div id="c3" class="ov">
+   
+    <% if (articles && articles.c3 && articles.c3.length > 0) { %>
+      <% articles.c3.forEach(article => { %>
+        <div class="news-article">
+          <h2 class="article-title"><%= article.title %></h2>
+          <p class="article-published">Published: <%= article.publishedAt %></p>
+          <p class="article-description">Description: <%= article.description %></p>
+          <p class="article-source">Source: <%= article.source.name %></p>
+          <p class="article-url">URL: <a href="<%= article.url %>"><%= article.url %></a></p>
+          <hr>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="news-article">
+        <p>No articles found.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <div id="footer">
+    <div class="gif">
+       <p><a href="https://www.facebook.com/kusumanchi.srinivas.1/"><img src="https://img.icons8.com/?size=512&id=uLWV5A9vXIPu&format=png" style="height: 40px;width:40px"></a></p>
+      <p><a href="https://www.instagram.com/____nivas__/"><img src="https://img.icons8.com/?size=512&id=nj0Uj45LGUYh&format=png" style="height: 40px;width:40px"></a></p>
+      <p><a href="https://twitter.com/Venkate78830657?t=Gu_U8oDz5OhJc5o_bwJRJQ&s=09"><img src="https://img.icons8.com/?size=512&id=5MQ0gPAYYx7a&format=png" style="height: 40px;width:40px"></a></p>
+      <p><a href="https://www.linkedin.com/in/kusumanchi-srinivas/"><img src="https://img.icons8.com/linkedin" style="height: 40px;width:40px"></a></p>
+    <img src="">
+      <!-- Add your social media icons here -->
+    </div id="contact">
+    <h2>CONTACT: 9052290400</h2>
+    <h4>ksrinivas2304@gmail.com</h4>
+  </div>
+</div> <!-- Close the container div from the header -->
+</body>
+</html>
